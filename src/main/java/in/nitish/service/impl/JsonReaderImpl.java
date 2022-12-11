@@ -146,7 +146,7 @@ public class JsonReaderImpl implements ReadJsonService {
 		JsonNode jsonNode = null;
 		try {
 			
-			
+			System.out.println("add git");
 			
 			//1
 			
