@@ -1,0 +1,10 @@
+{
+    "svrId": "001",
+    "reqRefNo": "62289430027428",
+    "skyRefNo": "1668776778146",
+    "procStatus": "1",
+    "errCode": "00",
+    "errMsgSys": "Successfull",
+    "errMsgUsr": "Successfull",
+    "booking_details": "{\"reservationId\":\"100003822781535\",\"pnr\":\"4440643791\",\"trainName\":\"KAVERI EXPRESS\",\"total_fare\":145,\"trainNo\":\"16021\"}"
+}
