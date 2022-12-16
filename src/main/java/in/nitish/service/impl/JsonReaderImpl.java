@@ -98,6 +98,9 @@ public class JsonReaderImpl implements ReadJsonService {
 		JSONParser parser = new JSONParser();
 		Object object = null;
 		try {
+			
+			
+			
 			object = parser.parse(new FileReader(
 					"/home/nitish.kumar@reward360.local/Desktop/stsworkspace/2-JsonToJavaToJson/JsonFile/InsideJsonFile/data.json"));
 		//	object = parser.parse(new FileReader(JSON_FILE_URL));
@@ -145,10 +148,11 @@ public class JsonReaderImpl implements ReadJsonService {
 		ReadJsonEntityMain readJsonEntityMain=null;
 		JsonNode jsonNode = null;
 		try {
+			jsonNode = objectMapper.readTree(new File(".//data3.json"));
+			Object object=objectMapper.writeValueAsString(jsonNode);
+			System.out.println("add git" +object);
 			
-			System.out.println("add git");
-			
-			//1
+						//1
 			
 			/*
 			 jsonNode = objectMapper.readTree(new File(".//data2.json")).get("booking_details");
@@ -161,7 +165,7 @@ public class JsonReaderImpl implements ReadJsonService {
 			 
 			 */
 			 
-			      //2
+						//2
 		    /*	
 			jsonNode = objectMapper.readTree(new File(".//data2.json"));
 			System.out.println("JSONNode -> " +jsonNode);
@@ -174,7 +178,7 @@ public class JsonReaderImpl implements ReadJsonService {
 			String pnr=bookingDetailsJsonObj.get("pnr").asText();
 			System.out.println("pnr--> " +pnr);	
 		    */	
-				//3
+						//3
 	        /*	
 			String jsonString12="{\n"
 					+ "    \"svrId\": \"001\",\n"
@@ -193,17 +197,20 @@ public class JsonReaderImpl implements ReadJsonService {
 			System.out.println("booking_details "+booking_details);
 			String trainName = objectMapper.readTree(booking_details).get("trainName").asText();
 			System.out.println("trainName" +trainName);
-		    */
-			 
+			*/
+		    
+		        		//4 
+			
 				 jsonNode = objectMapper.readTree(new File(".//data1.json"));
 				  String str = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode );
 				  System.out.println("STR----->" +str);
 				  objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 				  System.out.println("JSONNode aaa -> " +jsonNode); 
 				  readJsonEntityMain=objectMapper.readValue(jsonNode.toString(), ReadJsonEntityMain.class);
-				  System.out.println("READJSONENTITYMAIN INSIDE  --->" +readJsonEntityMain);
-				  String writeValueAsString = objectMapper.writeValueAsString(jsonNode);
-				  System.out.println("writeValueAsString ---> " +writeValueAsString);
+				  System.out.println("READJSONENTITYMAIN INSIDE  --->" +readJsonEntityMain); //Here response in java object(Class)
+				  String writeValueAsString = objectMapper.writeValueAsString(jsonNode); 	// Already Json data into String but converting into String
+				  String readJsonEntityMainAsString = objectMapper.writeValueAsString(readJsonEntityMain); //Here readjsonentity in java object ,Convert that object into string
+				  System.out.println("writeValueAsString ---> " +readJsonEntityMainAsString);
 			
 			
 		} catch (IOException e) {
@@ -211,7 +218,7 @@ public class JsonReaderImpl implements ReadJsonService {
 			e.printStackTrace();
 		}
 		
-		System.out.println("READJSONENTITYMAIN OUTSIDE  --->" +readJsonEntityMain);
+		System.out.println("READJSONENTITYMAIN OUTSIDE  --->" +readJsonEntityMain);  //Here response in java object
 		return readJsonEntityMain;
 		
 	}
