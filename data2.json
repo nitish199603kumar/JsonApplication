@@ -6,5 +6,9 @@
     "errCode": "00",
     "errMsgSys": "Successfull",
     "errMsgUsr": "Successfull",
+    "avlClasses": [
+						"SL",
+						"2s"
+				  ],
     "booking_details": "{\"reservationId\":\"100003822781535\",\"pnr\":\"4440643791\",\"trainName\":\"KAVERI EXPRESS\",\"total_fare\":145,\"trainNo\":\"16021\"}"
 }

@@ -12,5 +12,6 @@ public class SkyResHeader {
 	private String ErrCode;
 	private String ErrMsgSys;
 	private String ErrMsgUsr;
-
+	
+	
 }

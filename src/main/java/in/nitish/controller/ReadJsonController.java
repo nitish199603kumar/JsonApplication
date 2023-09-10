@@ -9,20 +9,23 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import in.nitish.dto.ReadJsonDto;
+import in.nitish.entity.ReadJson3;
 import in.nitish.entity.ReadJsonEntityMain;
+import in.nitish.pojo.FileResponse;
 import in.nitish.service.ReadJsonService;
 
 @RestController
@@ -44,7 +47,7 @@ public class ReadJsonController {
 		JsonNode jsonNode = null;
 		try {
 			jsonNode = objectMapper.readTree(new File(
-					"/home/nitish.kumar@reward360.local/Desktop/stsworkspace/2-JsonToJavaToJson/JsonFile/InsideJsonFile/data.json"));
+					"C:\\Users\\NKSK\\Desktop\\New SpringBoot\\2-JsonToJavaToJson\\JsonFile\\InsideJsonFile\\data.json"));
 			JsonNode partnerResponse = (JsonNode) jsonNode.get("SkyResBody").get("partnerResponse");
 			System.out.println("partnerResponse" + partnerResponse);
 			ArrayNode trainBtwnStnsList = (ArrayNode) partnerResponse.get("trainBtwnStnsList");
@@ -99,7 +102,7 @@ public class ReadJsonController {
 		try {
 
 			obj = parser.parse(new FileReader(
-					"/home/nitish.kumar@reward360.local/Desktop/stsworkspace/2-JsonToJavaToJson/JsonFile/InsideJsonFile/data.json"));
+					"C:\\\\Users\\\\NKSK\\\\Desktop\\\\New SpringBoot\\\\2-JsonToJavaToJson\\\\JsonFile\\\\InsideJsonFile\\\\data.json"));
 			JSONObject jsonObject = (JSONObject) obj;
 
 			// SkyResHeader
@@ -212,5 +215,38 @@ public class ReadJsonController {
 		return new ResponseEntity<ReadJsonEntityMain>(readJsonEntityAndSaveDb,HttpStatus.OK);
 			
 	}
+	
+	@GetMapping("/readjson3")
+	public ResponseEntity<ReadJson3> readJson3(){
+		
+		ReadJson3 readJson3 = readJsonService.readJson3();
+		
+		return new ResponseEntity<ReadJson3>(readJson3,HttpStatus.OK);
+	}
+	
+	@GetMapping("/uploadFile")
+	public ResponseEntity<FileResponse> readFile(@RequestParam("file") MultipartFile file){
+		System.out.println("File Name : " +file.getOriginalFilename());
+		String uploadFile=null;
+		try {
+			
+			System.out.println("File Name : " +file.getName());
+			uploadFile = this.readJsonService.uploadFile(file); 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<FileResponse>(new FileResponse(null, "File is not uploaded due to error on server !!"),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<FileResponse>(new FileResponse(uploadFile, "File is successfully Uploaded...!!"),HttpStatus.OK);
+		
+//		
+//		return new ResponseEntity<Object>("File Uploaded Successfully",HttpStatus.OK);
+	}
+	
+	
+	
+
+	
+	
 		
 }
